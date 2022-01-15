@@ -31,13 +31,15 @@ router.post('/login', async (req, res) => {
         originalPassword !== req.body.password &&
             res.status(401).json('Password is incorrect');
 
-        const {password, ...info} = user._doc;
+        const {password, ...info} = user._doc; //here removing the password
         const accessToken = jwt.sign(
             {id: user._id, isAdmin: user.isAdmin},
             process.env.SECRET_KEY,
             {expiresIn: '5d'}
             );
 
+        // res.status(200).json(info); 
+        // res.status(200).json({info}); //result will come in info object
         res.status(200).json({...info, accessToken});
 
     } catch (err) {
