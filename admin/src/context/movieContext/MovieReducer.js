@@ -37,6 +37,24 @@ export const MoviesReducer = (state, action) => {
                 isFetching: false,
                 isError: true
             };
+        case 'CREATE_MOVIE_START':
+            return {
+                ...state,
+                isFetching: true,
+                isError: false
+            };
+        case 'CREATE_MOVIE_SUCCESS':
+            return {
+                moview: [...state.movies, action.payload],
+                isFetching: false,
+                isError: false
+            }
+        case 'CREATE_MOVIE_FAILURE':
+            return {
+                ...state,
+                isFetching: false,
+                isError: true
+            }    
         default:
             return { ...state };
     }
